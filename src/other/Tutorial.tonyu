@@ -1,0 +1,33 @@
+includes Init;
+init();
+t = timeStop();
+
+$sound.playBGM( $se_k_44, true );
+
+panel = new Panel{ 
+    fillStyle="black", alpha=60,
+};
+panel.fillRect( 0, 0, $screenWidth, $screenHeight );
+
+power = 0;
+setumeiText = new Label{
+    text="ガリを太らせて\nデブにしよう！\n\n時間内にできるだけ\n太って横綱を目指そう！", 
+    x=$screenWidth * 0.5, y=$screenHeight * 0.3,
+    fillStyle="white", size=100,
+};
+startText = new Label{
+    text="画面タップかクリックでスタート", 
+    x=$screenWidth * 0.5, y=$screenHeight * 0.7,
+    fillStyle="white", size=50,
+};
+
+while( true ){
+    if( $touches[ 0 ].touched === 1 ) break;
+    update();
+}
+
+$sound.playSE( $se_get, 2 );
+panel.die();
+setumeiText.die();
+startText.die();
+t.releaseAll();

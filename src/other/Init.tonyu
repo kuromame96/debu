@@ -1,0 +1,22 @@
+\init(){
+    $fontColor = "#88001b";
+    $bgColor = "#faf2ee";
+    
+    $Screen.resize( 1080, 1920 );
+    $Screen.setBGColor( $bgColor );
+    
+    $printColor = $fontColor;
+    $printSize = 100;
+    
+}
+
+\retry(){
+    $tabeta = 0;
+    $time = 2000;
+    $breakAlien = 0;
+}
+
+function decimalPart(num, decDigits){
+    var decPart = num - ((num >= 0) ? floor(num) : ceil(num));
+    return decPart.toFixed(decDigits);
+}

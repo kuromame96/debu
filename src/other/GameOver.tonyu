@@ -1,0 +1,67 @@
+includes Init;
+t = timeStop();
+
+panel = new Panel{
+    fillStyle="black", alpha=60,
+};
+panel.fillRect( 0, 0, $screenWidth, $screenHeight );
+
+gari = new Actor{
+    p = $pat_debu+3,
+    x = $screenWidth * 0.5, y = $screenHeight * 0.4,
+    scaleX = 4,
+};
+
+for( i=gari.scaleX; i > 1; i+=-0.1 ){
+    gari.scaleX = i;
+    update();
+}
+
+$sound.playSE( $se_gunshot );
+actList = [
+new Label{ 
+    text="過労！！", size=250, fillStyle="white",
+    x=$screenWidth * 0.5, y=$screenHeight * 0.6,
+    yureHaba=3,
+},
+];
+var aFPosList = actList.map( \( a ){
+    return { x=a.x, y=a.y };
+});
+
+parallel( "actBuru" );
+\actBuru(){
+    while( true ){
+        aFPosList.map( \( fp, i ){
+            var a = actList[ i ];
+            a.x = fp.x + ( rnd()+rnd()+rnd()+rnd()+rnd() ) * a.yureHaba;
+            a.y = fp.y + ( rnd()+rnd()+rnd()+rnd()+rnd() ) * a.yureHaba;
+        });
+        
+        update();
+    }   
+};
+
+updateEx( 30 );
+$sound.playSE( $se_gunshot );
+new Label{ 
+    template="倒した数: $breakAlien", size=100, fillStyle="white",
+    x=$screenWidth * 0.5, y=$screenHeight * 0.7,
+    yureHaba=0.1,
+};
+
+updateEx( 60 );
+new Label{ 
+    text="タッチかクリックしてリトライ", size=50,
+    x=$screenWidth * 0.5, y=$screenHeight * 0.8,
+    yureHaba=0.1,
+};
+
+while( true ){
+    if( $touches[ 0 ].touched === 1 ){
+        retry();
+        loadPage( KuimonoGet );
+    }
+    
+    update();
+}    

@@ -1,0 +1,34 @@
+includes Init;
+init();
+
+frame = 0;
+ui = new AlienUI;
+pl = new HanatuDebu{ x=$screenWidth*0.5, y=$screenHeight*0.1 };
+setumeiText = new Label{
+    text="スワイプかマウス移動で軌道変更",
+    size=50, fillStyle=$fontColor,
+    x=$screenWidth * 0.5, y=$screenHeight * 0.9,
+};
+
+$sound.playBGM( $se_k_94, true );
+
+update();
+
+while( true ){
+    if( frame % 40 === 0 ){
+        for ( i=0; i < 3; i++ ){
+            new Alien{ 
+                x=rnd( $screenWidth ), y=$screenHeight + 512 * 0.5,
+            };
+        }
+    }
+    
+    if( $tabeta <= 0 ) break;
+    
+    frame++;
+    update();
+}
+
+setumeiText.die();
+ui.die();
+new GameOver;

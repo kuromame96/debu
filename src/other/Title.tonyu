@@ -1,0 +1,74 @@
+includes Init;
+init();
+start = false;
+
+actList = [
+new Label{ 
+    text="でぶ", size=300, fillStyle=$fontColor,
+    x = $screenWidth * 0.5, y = $screenHeight * 0.2,
+    yureHaba = 300 * 0.01,
+},
+new Label{ 
+    text="ver 1.0.0", size=100, fillStyle=$fontColor,
+    x = $screenWidth * 0.5, y = $screenHeight * 0.32,
+    yureHaba = 100 * 0.01,
+},
+new Label{ 
+    text="画面タッチかクリックして", size=80, fillStyle=$fontColor,
+    x = $screenWidth * 0.5, y = $screenHeight * 0.7,
+    yureHaba = 80 * 0.01,
+},
+new Actor{
+    p=$pat_debu+1, 
+    x=$screenWidth*0.5, y=$screenHeight*0.5,
+    yureHaba = 300 * 0.01,
+},
+new Label{ 
+    text="* 素材提供 *\n魔王魂 MidingerZ 効果音ラボ", size=70, fillStyle=$fontColor,
+    x = $screenWidth * 0.5, y = $screenHeight * 0.8,
+    yureHaba = 80 * 0.01,
+},
+];
+
+parallel( "actBuruburu" );
+\actBuruburu(){
+    var a_first_pos_list = actList.map( \( t ){
+        return { x=t.x, y=t.y };
+    });
+    while( true ){
+        a_first_pos_list.map( \( fp, i ){
+            var a = actList[ i ];
+            a.x = fp.x + ( rnd()+rnd()+rnd()+rnd()+rnd() ) * a.yureHaba;
+            a.y = fp.y + ( rnd()+rnd()+rnd()+rnd()+rnd() ) * a.yureHaba;
+        });
+        
+        if( start ) break;
+        
+        update();
+    }    
+    
+    a_first_pos_list.map( \( fp, i ){
+        var a = actList[ i ];
+        a.x = fp.x;
+        a.y = fp.y;
+    });
+    
+    update();
+}
+
+while( true ){
+    if( $touches[ 0 ].touched === 1 ) break;
+        
+    update();
+}
+
+$sound.stopBGM();
+start = true;
+new FadeEffect{ type="in", duration=10, fillStyle="white" };
+$sound.playSE( $se_get );
+
+update();
+
+updateEx( 30 );
+
+loadPage( KuimonoGet );

@@ -1,0 +1,11 @@
+p = $pat_kuimono + rnd( 4 );
+scaleX = 0.5;
+sp;
+crashScale = 0.5;
+
+while( true ){
+    y += sp;
+    if( screenOut( 512 * 0.5 ) ) die();
+    
+    update();
+}

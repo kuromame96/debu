@@ -1,0 +1,14 @@
+includes DebuMot;
+p=$pat_debu+0;
+crashScale = 0.1;
+
+parallel( "sound", $se_se_maoudamashii_se_drink02, $se_gottuan );
+
+while( true ){
+    x = $mouseX;
+    y = $mouseY;
+    
+    pUpdate();
+    
+    update();
+}

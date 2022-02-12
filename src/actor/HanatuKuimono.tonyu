@@ -1,0 +1,25 @@
+p = $pat_kuimono + rnd( 4 );
+firstPosX;
+firstPoxY;
+scaleX = 0.4;
+sp = 50;
+radius = 1;
+crashScale = 0.5;
+targetAngle;
+if( !$Navigator.isMobile() || !$Navigator.isTablet() ){
+    targetAngle = atan2( $mouseY - firstPosY, $mouseX - firstPosX );
+}else{
+    targetAngle = atan2( $touches[ 0 ].y, $touches[ 0 ].x );
+}
+
+$sound.playSE( $se_burp1 );
+
+while( true ){
+    radius += sp;
+    x = firstPosX + cos( targetAngle ) * radius;
+    y = firstPosY + sin( targetAngle ) * radius;
+    
+    if( screenOut( 512 * 0.5 ) ) die();
+    
+    update();
+}

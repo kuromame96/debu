@@ -1,0 +1,75 @@
+p = $pat_alien+0;
+flip = false;
+frame = 0;
+sp = -10;
+hp = 1;
+scale = 0.8;
+angle = 1;
+vAngle = 3;
+angleSP = -0.1;
+
+parallel( "walk" );
+\walk(){
+    while( true ){
+        
+        frame++;
+        
+        y += sp;
+        
+        if( frame % 3 === 0 ) flip = !flip;
+        scaleX = flip ? scale : -scale;
+        scaleY = scale;
+        
+        if( hp <= 0 ) break;
+        
+        update();
+    }
+}
+
+\damageEffect(){
+    $sound.playSE( $se_doko );
+    hide();
+    updateEx( 0.5 );
+    show();
+    updateEx( 0.5 );
+    hide();
+    updateEx( 0.5 );
+    show();
+}
+
+while( true ){
+    cl = crashTo( HanatuKuimono );
+    if( cl ){
+        hp--;
+        parallel( "damageEffect" );
+        
+        cl.die();
+        
+        if( hp <= 0 ) break;
+    }
+    
+    update();
+}
+
+p = $pat_alien+1;
+$sound.playSE( $se_gua, 128, 0, 0.8 );
+
+while( true ){
+    vAngle += angleSP;
+    angle += vAngle;
+    rotation = angle;
+    
+    y += angle * 0.1;
+    
+    if( vAngle <= 0 ) break;
+    update();
+}
+
+updateEx( 10 );
+
+while( alpha > 0 ){
+    alpha += -10;
+    update();
+}
+$breakAlien++;
+die();
