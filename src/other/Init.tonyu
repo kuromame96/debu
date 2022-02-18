@@ -14,6 +14,8 @@
     $tabeta = 0;
     $time = 2000;
     $breakAlien = 0;
+    $per = 5;
+    $plLife = 3;
 }
 
 function decimalPart(num, decDigits){

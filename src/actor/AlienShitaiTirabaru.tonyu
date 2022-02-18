@@ -1,0 +1,28 @@
+firstPosX;
+firstPosY;
+radius = 1;
+sp = 30;
+
+
+alienList = [];
+for( i=0; i<10; i++ ){
+    shitaiAlien = new Actor{ p=$pat_alien+1, scaleX=0.8 };
+    alienList.push( shitaiAlien );
+}
+
+alienAngleList = alienList.map(\(){
+    return rnd( 360 );
+});
+
+while( true ){
+    radius += sp;
+    alienAngleList.map( \( angle, i ){
+        alien = alienList[ i ];
+        alien.x = firstPosX + cos( angle ) * radius;
+        alien.y = firstPosY + sin( angle ) * radius;
+        
+        if( alien.screenOut( alien.widht ) ) alien.die();
+    }); 
+    
+    update();
+}

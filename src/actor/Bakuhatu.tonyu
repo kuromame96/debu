@@ -1,0 +1,17 @@
+p = $pat_bakuhatu;
+
+parallel( "kakudai" );
+\kakudai(){
+    scale = 0.1;
+    while( true ){
+        scale += 0.1;
+        scaleX = scale;
+        update();
+    }
+}
+
+for( i=255; i > 0; i += -5 ){
+    alpha = i;
+    update();
+}
+die();

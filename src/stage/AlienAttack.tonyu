@@ -1,6 +1,7 @@
 includes Init;
 init();
 
+gameOverType = 0;
 frame = 0;
 ui = new AlienUI;
 pl = new HanatuDebu{ x=$screenWidth*0.5, y=$screenHeight*0.1 };
@@ -9,6 +10,7 @@ setumeiText = new Label{
     size=50, fillStyle=$fontColor,
     x=$screenWidth * 0.5, y=$screenHeight * 0.9,
 };
+UFOSpawn = false;
 
 $sound.playBGM( $se_k_94, true );
 
@@ -23,7 +25,25 @@ while( true ){
         }
     }
     
-    if( $tabeta <= 0 ) break;
+    if( $tabeta <= 0 ){
+        gameOverType = 0;
+        break;
+    }
+    if( $per <= 0 ){
+        gameOverType = 1;
+        break;
+    }
+    if( $plLife <= 0 ){
+        gameOverType = 2;
+        break;
+    }
+    if( frame % 100 === 0 ){
+        if( !UFOSpawn ) {
+            ufo = new UFO;
+            ufo.on( "die" ) \{ UFOSpawn = false; };
+            UFOSpawn = true;
+        }
+    }
     
     frame++;
     update();
@@ -31,4 +51,6 @@ while( true ){
 
 setumeiText.die();
 ui.die();
-new GameOver;
+if( gameOverType === 0 ) new GameOver{ hitokotoText="過労!!", ilust=$pat_debu+3 };
+if( gameOverType === 1 ) new GameOver{ hitokotoText="侵略!!", ilust=$pat_sinryaku };
+if( gameOverType === 2 ) new GameOver{ hitokotoText="両断!!", ilust=$pat_mapputatu };

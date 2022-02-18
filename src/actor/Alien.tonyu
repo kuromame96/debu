@@ -16,6 +16,12 @@ parallel( "walk" );
         
         y += sp;
         
+        if( y < -width ){
+            $per--;
+            $sound.playSE( $se_pyun );
+            die();
+        }
+        
         if( frame % 3 === 0 ) flip = !flip;
         scaleX = flip ? scale : -scale;
         scaleY = scale;
@@ -52,7 +58,7 @@ while( true ){
 }
 
 p = $pat_alien+1;
-$sound.playSE( $se_gua, 128, 0, 0.8 );
+$sound.playSE( $se_gua, 128, 0, 2 );
 
 while( true ){
     vAngle += angleSP;

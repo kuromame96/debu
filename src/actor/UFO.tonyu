@@ -1,0 +1,80 @@
+p = $pat_ufo;
+centerX = $screenWidth * 0.5;
+centerY = $screenHeight * 1.2;
+centerVY = -30;
+sp = 0.5;
+angle = 1;
+angleSP = 5;
+radiusX = 300;
+radiusY = 50;
+scale = 2;
+scaleX = scale;
+frame = 200;
+attackTime = 0;
+attackTimeEnd = 100;
+life = 30;
+zOrder=-1;
+
+$sound.playSE( $se_keihou, 128, 0, 2 );
+
+parallel( "fuyofuyo" );
+\fuyofuyo(){
+    while( true ){
+        angle += angleSP;
+        x = centerX + cos( angle ) * radiusX;
+        y = centerY + sin( angle ) * radiusY;
+        
+        if( centerVY <= 5 ){
+            centerVY += sp;
+            centerY += centerVY;
+        }
+        
+        update();
+    }
+};
+
+while( true ){
+    if( frame % 300 === 0 ) {
+        if( attackTime <= 0 ) attackTime = attackTimeEnd;
+    }
+    
+    if( attackTime >= 1 ){
+        if( frame % 10 === 0 ) new Laser{ x=x, y=y };
+        attackTime--;
+    }
+    
+    cl = crashTo( HanatuKuimono );
+    if( cl ){
+        cl.die();
+        life--;
+    }
+    
+    if( life <= 0 ) break;
+    
+    frame++;
+    update();
+};
+
+angleSP = 30;
+radiusX = 50;
+radiusY = 50;
+
+parallel( "takusanBakuhatu" );
+\takusanBakuhatu(){
+    var f = 0;
+    while( true ){
+        if( f % 5 === 0 ){
+            $sound.playSE( $se_gunshot, 128, 0, 0.8 );
+            new Bakuhatu{ x=rnd( x + -300, x + 300 ), y=rnd( y + -300, y + 300 ), zOrder=-2 };
+        }
+        
+        f++;
+        update();
+    }
+}
+
+updateEx( 120 );
+
+new AlienShitaiTirabaru{ firstPosX=x, firstPosY=y };
+$breakAlien += 10;
+die();

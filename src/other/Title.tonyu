@@ -9,7 +9,7 @@ new Label{
     yureHaba = 300 * 0.01,
 },
 new Label{ 
-    text="ver 1.0.0", size=100, fillStyle=$fontColor,
+    text="ver 1.1", size=100, fillStyle=$fontColor,
     x = $screenWidth * 0.5, y = $screenHeight * 0.32,
     yureHaba = 100 * 0.01,
 },

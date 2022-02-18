@@ -1,4 +1,4 @@
-\sound( se1, se2 ){
+\sound( se1, se2, se3, se4 ){
     var sound_not_play = false;
     
     while( true ){
@@ -8,10 +8,17 @@
         }
         if( $tabeta === 300 && !sound_not_play ){
             $sound.playSE( se1 );
-            $sound.playSE( se2 );
             sound_not_play = true;
+            updateEx( 40 );
+            $sound.playSE( se2 );
         }
-        if( $tabeta === 101 || $tabeta === 99 || $tabeta === 201 || $tabeta === 199 || $tabeta === 299 || $tabeta === 301 ){
+        if( $tabeta === 500 && !sound_not_play ){
+            $sound.playSE( se3 );
+            sound_not_play = true;
+            updateEx( 40 );
+            $sound.playSE( se4 );
+        }
+        if( $tabeta === 101 || $tabeta === 99 || $tabeta === 201 || $tabeta === 199 || $tabeta === 299 || $tabeta === 301 || $tabeta === 499 || $tabeta === 501 ){
             sound_not_play = false;
         }
         update();
@@ -24,8 +31,11 @@
     }else if( $tabeta < 300 ){
         p=$pat_debu+1;
         crashScale=0.3;
-    }else if( $tabeta > 300 ){
+    }else if( $tabeta < 500 ){
         p=$pat_debu+2;
         crashScale=0.7;
+    }else if( $tabeta > 500 ){
+        p=$pat_debu+4;
+        crashScale=1;
     }
 }

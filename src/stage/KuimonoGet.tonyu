@@ -51,16 +51,17 @@ alienText = new Label{
     fillStyle=$fontColor,
     text="エイリアンの襲来だ！！",
     size=200,
-    x=0, y=$screenHeight * 0.5,
+    align="left",
+    x=$screenWidth, y=$screenHeight * 0.5,
 };
 
 aTextAngle = 0;
 
 while( true ){
     aTextAngle += 1;
-    alienText.x = $screenWidth * 0.5 + cos( aTextAngle ) * 2000;
+    alienText.x += -25;
     
-    if( aTextAngle > 180 ) break;
+    if( alienText.x < -2500 ) break;
     
     update();
 }

@@ -1,15 +1,18 @@
 includes Init;
 t = timeStop();
+hitokotoText;
+ilust;
 
 panel = new Panel{
-    fillStyle="black", alpha=60,
+    fillStyle="black", alpha=60, zOrder=-30,
 };
 panel.fillRect( 0, 0, $screenWidth, $screenHeight );
 
 gari = new Actor{
-    p = $pat_debu+3,
+    p = ilust,
     x = $screenWidth * 0.5, y = $screenHeight * 0.4,
     scaleX = 4,
+    zOrder=-30,
 };
 
 for( i=gari.scaleX; i > 1; i+=-0.1 ){
@@ -20,9 +23,9 @@ for( i=gari.scaleX; i > 1; i+=-0.1 ){
 $sound.playSE( $se_gunshot );
 actList = [
 new Label{ 
-    text="過労！！", size=250, fillStyle="white",
+    text=hitokotoText, size=250, fillStyle="white",
     x=$screenWidth * 0.5, y=$screenHeight * 0.6,
-    yureHaba=3,
+    yureHaba=3, zOrder=-30,
 },
 ];
 var aFPosList = actList.map( \( a ){
@@ -47,14 +50,14 @@ $sound.playSE( $se_gunshot );
 new Label{ 
     template="倒した数: $breakAlien", size=100, fillStyle="white",
     x=$screenWidth * 0.5, y=$screenHeight * 0.7,
-    yureHaba=0.1,
+    yureHaba=0.1, zOrder=-30,
 };
 
 updateEx( 60 );
 new Label{ 
     text="タッチかクリックしてリトライ", size=50,
     x=$screenWidth * 0.5, y=$screenHeight * 0.8,
-    yureHaba=0.1,
+    yureHaba=0.1, zOrder=-30,
 };
 
 while( true ){

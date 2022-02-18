@@ -1,0 +1,20 @@
+p = $pat_laser;
+sp = -18;
+frame = 0;
+scaleX = 0.5;
+zOrder = -2;
+$sound.playSE( $se_pa, 128, 0, 0.8 );
+
+while( true ){
+    y += sp;
+    scaleX += 0.01;
+    
+    cl_ku = crashTo( HanatuKuimono );
+    if( cl_ku ){
+        cl_ku.die();
+        die();
+    }
+    
+    frame++;
+    update();
+}

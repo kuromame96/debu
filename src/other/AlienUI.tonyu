@@ -5,7 +5,7 @@ panel = new Panel{
 panel.fillRect( 0, 0, $screenWidth, $screenHeight * 0.15 );
 
 label = new Label{
-    template="残弾: $tabeta\n倒した数: $breakAlien",
+    template="弾:$tabeta  倒した数:$breakAlien\n体力:$plLife  侵入許容:$per",
     x=$screenWidth * 0.5, y=$screenHeight * 0.05,
     size=100, fillStyle="white",
 };

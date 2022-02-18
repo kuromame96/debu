@@ -3,7 +3,10 @@ p=$pat_debu+0;
 firstX = $screenWidth * 0.5;
 firstY = $screenHeight * 0.1;
 frame = 0;
-parallel( "sound", $se_ha );
+damageMotTimeEnd = 50;
+damageMotTime = 0;
+damageMot = false;
+parallel( "sound", $se_ha, undefined, $se_ha );
 
 while( true ){
     if( frame % 6 === 0 ) {
@@ -12,6 +15,27 @@ while( true ){
     };
     
     pUpdate();
+    
+    cl = crashTo( Laser );
+    if( cl ) damageMot = true;
+    
+    if( damageMot ){
+        if( damageMotTime >= 2 ){
+            damageMotTime--;
+            frame % 2 === 0 ? show() : hide();
+        }else if( damageMotTime >= 1 ){
+            damageMotTime = 0;
+            damageMot = false;
+            invincibleTime = invincibleTimeEnd;
+            show();
+        }else if( damageMotTime <= 0 ){
+            damageMotTime = damageMotTimeEnd;
+            $plLife--;
+            $sound.playSE( $se_doko, 128, 0, 2 );
+            $sound.playSE( $se_gua, 128, 0, 0.8 );
+            cl.die();
+        }
+    }
     
     frame++;
     update();
